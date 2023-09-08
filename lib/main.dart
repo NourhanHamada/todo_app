@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
         return MultiBlocProvider(
           providers: [
             BlocProvider(
-              create: (context) => TodoCubit()..getTodo(),
+              create: (context) => TodoCubit()..getTodo()..random(),
             ),
           ],
           child: MaterialApp(

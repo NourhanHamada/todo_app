@@ -2,13 +2,25 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:todo_app/view/constant/assets.dart';
 import 'package:todo_app/view/constant/extension.dart';
-import 'package:todo_app/view/widgets/circle_decor.dart';
 import 'package:todo_app/view/screens/home_screen.dart';
-import '../widgets/main_button.dart';
+import 'package:todo_app/view/widgets/circle_decor.dart';
 
-class SplashScreen extends StatelessWidget {
+class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
 
+  @override
+  State<SplashScreen> createState() => _SplashScreenState();
+}
+
+class _SplashScreenState extends State<SplashScreen> {
+
+  @override
+  void initState() {
+    Future.delayed((const Duration(seconds: 2)), () {
+      context.push(const HomeScreen());
+    });
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,12 +59,12 @@ class SplashScreen extends StatelessWidget {
                   SizedBox(
                     height: 32.h,
                   ),
-                  MainButton(
-                    title: 'Get Started',
-                    onTap: () {
-                      context.push(const HomeScreen());
-                    },
-                  ),
+                  // MainButton(
+                  //   title: 'Get Started',
+                  //   onTap: () {
+                  //     context.push(const HomeScreen());
+                  //   },
+                  // ),
                 ],
               ),
             ),

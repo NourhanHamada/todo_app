@@ -11,7 +11,19 @@ class TodoCubit extends Cubit<TodoState> {
 
   TodoCubit get(context) => BlocProvider.of(context);
 
-  List<TodoModel> todoList = [];
+  List motivationalQuotes = [
+    'Make it for you Future!',
+    'Don\'t stop until you\'re proud of your self!',
+    'Don\'t give up!',
+    'Sweet now, Glow later!',
+  ];
+
+  void random() {
+    motivationalQuotes.shuffle();
+    emit(GetRandomQuote());
+  }
+
+  static List<TodoModel> todoList = [];
   TodoModel? todoModel;
 
   getTodo() async {
@@ -35,4 +47,7 @@ class TodoCubit extends Cubit<TodoState> {
       emit(TodoDataFail());
     });
   }
+
+  static List<int> list = [];
+
 }

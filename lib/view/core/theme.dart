@@ -4,6 +4,7 @@ import 'package:todo_app/view/constant/colors.dart';
 
 ThemeData themeData(context){
   return ThemeData(
+    platform: TargetPlatform.iOS,
     scaffoldBackgroundColor: backgroundColor,
     primaryColor: mainColor,
     textTheme: GoogleFonts.montserratTextTheme(Theme.of(context).textTheme),

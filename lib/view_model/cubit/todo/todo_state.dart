@@ -10,3 +10,9 @@ class TodoDataLoading extends TodoInitial {}
 class TodoDataSuccess extends TodoInitial {}
 
 class TodoDataFail extends TodoInitial {}
+
+class GetRandomQuote extends TodoInitial {}
+
+class LoadMoreState extends TodoInitial {}
+
+class LoadMoreData extends TodoInitial {}
