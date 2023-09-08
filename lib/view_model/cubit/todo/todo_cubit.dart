@@ -54,11 +54,6 @@ class TodoCubit extends Cubit<TodoState> {
  static List<TodoModel> filteredTodos = [];
   getUserTodo(int? index){
     filteredTodos = todoList.where((todo) => todo.userId == index).toList();
-    print('HELLO!!!');
-    // print(filteredTodos.length);
-    // for (var todo in filteredTodos) {
-    //   debugPrint(todo.userId.toString());
-    // }
     // emit(FilterData());
   }
 

@@ -17,7 +17,7 @@ class UserCubit extends Cubit<UserState> {
   getUsersData() async {
     emit(UserDataLoading());
     await DioHelper.getData(url: usersEndPoint).then((value) {
-      debugPrint(value.data.toString());
+      // debugPrint(value.data.toString());
       for (Map i in value.data) {
         userModel = UserModel(
           id: i['id'],

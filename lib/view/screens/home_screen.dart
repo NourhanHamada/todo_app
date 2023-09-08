@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:loadmore/loadmore.dart';
 import 'package:todo_app/view/constant/assets.dart';
 import 'package:todo_app/view/constant/colors.dart';
@@ -21,11 +20,9 @@ class _HomeScreenState extends State<HomeScreen> {
   int count = 100;
 
   void load() {
-    // print(count);
     if (count < TodoCubit.todoList.length) {
         count += 100;
     }
-    // print(count);
   }
 
   Future<bool> loadMore() async {
