@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:todo_app/view/constant/assets.dart';
 import 'package:todo_app/view/constant/extension.dart';
-import 'package:todo_app/view/core/scaffold_custom.dart';
+import 'package:todo_app/view/widgets/circle_decor.dart';
 import 'package:todo_app/view/screens/home_screen.dart';
 import '../widgets/main_button.dart';
 
