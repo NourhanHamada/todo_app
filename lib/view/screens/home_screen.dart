@@ -21,9 +21,11 @@ class _HomeScreenState extends State<HomeScreen> {
   int count = 100;
 
   void load() {
-    if (count < TodoCubit.filteredTodos.length) {
-      count += 100;
+    // print(count);
+    if (count < TodoCubit.todoList.length) {
+        count += 100;
     }
+    // print(count);
   }
 
   Future<bool> loadMore() async {
@@ -157,8 +159,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                   ? LoadMore(
                                       textBuilder:
                                           DefaultLoadMoreTextBuilder.english,
-                                      isFinish: count >=
-                                          TodoCubit.filteredTodos.length,
+                                      isFinish: count >= TodoCubit.todoList.length,
                                       onLoadMore: loadMore,
                                       child: ListView.builder(
                                           padding:

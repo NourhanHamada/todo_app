@@ -27,60 +27,78 @@ class UsersScreen extends StatelessWidget {
             child: Column(
               children: [
                 Image.asset(users),
-                SizedBox(
-                  height: MediaQuery.sizeOf(context).height / 2,
-                  child: ListView.builder(
-                      shrinkWrap: true,
-                      padding: EdgeInsets.zero,
-                      itemCount: userCubit.userList.length,
-                      itemBuilder: (context, int index) {
-                        return GestureDetector(
-                          onTap: (){
-                            context.push(const HomeScreen());
-                            todoCubit.getUserTodo(index +1);
-                          },
-                          child: Card(
-                            color: greenColor,
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(8),
-                            ),
-                            child: ListTile(
-                              leading: Container(
-                                width: 30,
-                                height: 30,
-                                decoration: const BoxDecoration(
-                                    shape: BoxShape.circle,
-                                    color: backgroundColor),
-                                child: Center(
-                                  child: Text(
-                                    userCubit.userList[index].id.toString(),
+                BlocConsumer<UserCubit, UserState>(
+                  listener: (context, state) {
+                    // TODO: implement listener
+                  },
+                  builder: (context, state) {
+                    return SizedBox(
+                      height: MediaQuery.sizeOf(context).height / 2,
+                      child: state is UserDataSuccess
+                          ? ListView.builder(
+                              shrinkWrap: true,
+                              padding: EdgeInsets.zero,
+                              itemCount: userCubit.userList.length,
+                              itemBuilder: (context, int index) {
+                                return GestureDetector(
+                                  onTap: () {
+                                    context.push(const HomeScreen());
+                                    todoCubit.getUserTodo(index + 1);
+                                  },
+                                  child: Card(
+                                    color: greenColor,
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    child: ListTile(
+                                      leading: Container(
+                                        width: 30,
+                                        height: 30,
+                                        decoration: const BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            color: backgroundColor),
+                                        child: Center(
+                                          child: Text(
+                                            userCubit.userList[index].id
+                                                .toString(),
+                                          ),
+                                        ),
+                                      ),
+                                      title: Text(
+                                        userCubit.userList[index].name
+                                            .toString(),
+                                        style: const TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                      subtitle: Text(
+                                        userCubit.userList[index].email
+                                            .toString(),
+                                        style: const TextStyle(
+                                          color: blackColor,
+                                        ),
+                                      ),
+                                    ),
                                   ),
-                                ),
-                              ),
-                              title: Text(
-                                userCubit.userList[index].name.toString(),
-                                style: const TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              subtitle: Text(
-                                userCubit.userList[index].email.toString(),
-                                style: const TextStyle(
-                                  color: blackColor,
-                                ),
+                                );
+                              })
+                          : const Center(
+                              child: CircularProgressIndicator(
+                                color: mainColor,
                               ),
                             ),
-                          ),
-                        );
-                      }),
+                    );
+                  },
                 ),
                 SizedBox(
                   height: 16.h,
                 ),
-                MainButton(title: 'All ToDos', onTap: (){
-                  context.push(const HomeScreen());
-                  todoCubit.getTodo();
-                })
+                MainButton(
+                    title: 'All ToDos',
+                    onTap: () {
+                      context.push(const HomeScreen());
+                      todoCubit.getTodo();
+                    })
               ],
             ),
           ),
