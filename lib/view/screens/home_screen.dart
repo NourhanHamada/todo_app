@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:loadmore/loadmore.dart';
 import 'package:todo_app/view/constant/assets.dart';
 import 'package:todo_app/view/constant/colors.dart';
+import 'package:todo_app/view/constant/extension.dart';
 import 'package:todo_app/view/widgets/circle_decor.dart';
 import 'package:todo_app/view_model/cubit/todo/todo_cubit.dart';
 import '../core/custom_clip_path.dart';
@@ -16,13 +18,14 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-
   int count = 100;
+
   void load() {
-    if(count < TodoCubit.todoList.length){
-      count +=100;
+    if (count < TodoCubit.filteredTodos.length) {
+      count += 100;
     }
   }
+
   Future<bool> loadMore() async {
     await Future.delayed(const Duration(seconds: 0, milliseconds: 100));
     setState(() {
@@ -31,10 +34,9 @@ class _HomeScreenState extends State<HomeScreen> {
     return true;
   }
 
-
   @override
   Widget build(BuildContext context) {
-    TodoCubit todoCubit = BlocProvider.of(context, listen: true);
+    TodoCubit todoCubit = BlocProvider.of<TodoCubit>(context, listen: true);
     return Scaffold(
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -78,6 +80,16 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
                   ),
                 ),
+                SafeArea(
+                    child: GestureDetector(
+                      onTap: (){
+                        context.pop();
+                      },
+                        child: Image.asset(
+                  arrowBack,
+                  color: blackColor,
+                  width: 48,
+                ))),
               ],
             ),
           ),
@@ -143,52 +155,69 @@ class _HomeScreenState extends State<HomeScreen> {
                               height: 250,
                               child: state is TodoDataSuccess
                                   ? LoadMore(
-                                textBuilder: DefaultLoadMoreTextBuilder.english,
-                                isFinish: count >= TodoCubit.todoList.length,
-                                onLoadMore: loadMore,
-                                    child: ListView.builder(
-                                        padding: const EdgeInsets.only(top: 8),
-                                        itemCount: count,
-                                        itemBuilder:
-                                            (BuildContext context, int index) {
-                                          return Padding(
-                                            padding:
-                                                const EdgeInsets.only(bottom: 8),
-                                            child: Row(
-                                              children: [
-                                                Container(
-                                                  width: 20,
-                                                  height: 20,
-                                                  decoration: BoxDecoration(
-                                                      border: Border.all(
-                                                          color: blackColor,
-                                                          width: 2),
-                                                      color: TodoCubit
-                                                                  .todoList[index]
-                                                                  .completed ==
-                                                              true
-                                                          ? mainColor
-                                                          : whiteColor),
-                                                ),
-                                                const SizedBox(
-                                                  width: 16,
-                                                ),
-                                                SizedBox(
-                                                  width: 230.w,
-                                                  child: Text(
-                                                    TodoCubit
-                                                        .todoList[index].title
-                                                        .toString(),
-                                                    style: const TextStyle(
-                                                      fontWeight: FontWeight.bold,
+                                      textBuilder:
+                                          DefaultLoadMoreTextBuilder.english,
+                                      isFinish: count >=
+                                          TodoCubit.filteredTodos.length,
+                                      onLoadMore: loadMore,
+                                      child: ListView.builder(
+                                          padding:
+                                              const EdgeInsets.only(top: 8),
+                                          itemCount: TodoCubit
+                                                  .filteredTodos.isNotEmpty
+                                              ? TodoCubit.filteredTodos.length
+                                              : count,
+                                          itemBuilder: (BuildContext context,
+                                              int index) {
+                                            return Padding(
+                                              padding: const EdgeInsets.only(
+                                                  bottom: 8),
+                                              child: Row(
+                                                children: [
+                                                  Container(
+                                                    width: 20,
+                                                    height: 20,
+                                                    decoration: BoxDecoration(
+                                                        border: Border.all(
+                                                            color: blackColor,
+                                                            width: 2),
+                                                        color: TodoCubit
+                                                                    .todoList[
+                                                                        index]
+                                                                    .completed ==
+                                                                true
+                                                            ? mainColor
+                                                            : whiteColor),
+                                                  ),
+                                                  const SizedBox(
+                                                    width: 16,
+                                                  ),
+                                                  SizedBox(
+                                                    width: 230.w,
+                                                    child: Text(
+                                                      TodoCubit.filteredTodos
+                                                              .isNotEmpty
+                                                          ? TodoCubit
+                                                              .filteredTodos[
+                                                                  index]
+                                                              .title
+                                                              .toString()
+                                                          : TodoCubit
+                                                              .todoList[index]
+                                                              .title
+                                                              .toString(),
+                                                      // TodoCubit.todoList[index].title.toString(),
+                                                      style: const TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                      ),
                                                     ),
                                                   ),
-                                                ),
-                                              ],
-                                            ),
-                                          );
-                                        }),
-                                  )
+                                                ],
+                                              ),
+                                            );
+                                          }),
+                                    )
                                   // : TodoCubit.todoList.isEmpty
                                   //     ? const Center(
                                   //         child: Text(
@@ -198,11 +227,11 @@ class _HomeScreenState extends State<HomeScreen> {
                                   //           ),
                                   //         ),
                                   //       )
-                                      : const Center(
-                                          child: CircularProgressIndicator(
-                                            color: mainColor,
-                                          ),
-                                        ),
+                                  : const Center(
+                                      child: CircularProgressIndicator(
+                                        color: mainColor,
+                                      ),
+                                    ),
                             );
                           },
                         ),

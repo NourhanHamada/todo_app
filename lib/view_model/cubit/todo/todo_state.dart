@@ -13,6 +13,6 @@ class TodoDataFail extends TodoInitial {}
 
 class GetRandomQuote extends TodoInitial {}
 
-class LoadMoreState extends TodoInitial {}
-
 class LoadMoreData extends TodoInitial {}
+
+class FilterData extends TodoInitial {}

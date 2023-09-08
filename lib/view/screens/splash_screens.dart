@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:todo_app/view/constant/assets.dart';
 import 'package:todo_app/view/constant/extension.dart';
-import 'package:todo_app/view/screens/home_screen.dart';
+import 'package:todo_app/view/screens/users_screen.dart';
 import 'package:todo_app/view/widgets/circle_decor.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -17,7 +17,7 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   void initState() {
     Future.delayed((const Duration(seconds: 2)), () {
-      context.push(const HomeScreen());
+      context.push(const UsersScreen());
     });
     super.initState();
   }
